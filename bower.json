@@ -1,0 +1,21 @@
+{
+  "name": "angular-zxcvbn",
+  "version": "0.0.1",
+  "authors": [
+    "Jose Luis Rivas <me@ghostbar.co>"
+  ],
+  "description": "Angular Directive for the zxcvbn library",
+  "main": "angular-zxcvbn.js",
+  "keywords": [
+    "angular",
+    "zxcvbn"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
