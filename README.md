@@ -29,7 +29,7 @@ Time to crack your password <zxcvbn password='passwordVar'></zxcvbn>
 
 There's another input variable available called `extra` where you can put an array with other strings the user has inputted like name, username or email, that way `zxcvbn` gets a better time to crack estimate.
 
-If in doubt on how to implement, please check the example available at `example/index.html`.
+If in doubt on how to implement, please check the example available at `example/index.html` or try it live on <http://plnkr.co/9wTZgR>.
 
 Author
 ------
