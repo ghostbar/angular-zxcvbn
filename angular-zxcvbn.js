@@ -5,9 +5,7 @@
 //
 (function () {
   'use strict';
-
   angular.module('angular-zxcvbn', [])
-
   .directive('zxcvbn', function () {
     return {
       scope: {
@@ -19,10 +17,10 @@
       link: function (scope) {
         scope.$watch('password', function (newVal) {
           if (newVal) {
-            if (scope.extra != null)
-              scope.timeToCrack = zxcvbn(scope.password, scope.extra);
+            if (scope.extra)
+              scope.timeToCrack = zxcvbn(newVal, scope.extra);
             else
-              scope.timeToCrack = zxcvbn(scope.password);
+              scope.timeToCrack = zxcvbn(newVal);
           }
         });
       }
