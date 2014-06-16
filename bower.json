@@ -8,6 +8,7 @@
   "main": "angular-zxcvbn.js",
   "keywords": [
     "angular",
+    "directive",
     "zxcvbn"
   ],
   "license": "MIT",
