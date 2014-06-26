@@ -1,6 +1,6 @@
 {
   "name": "angular-zxcvbn",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Angular directive for the library zxcvbn",
   "main": "angular-zxcvbn.js",
   "directories": {
