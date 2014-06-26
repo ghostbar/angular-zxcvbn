@@ -5,7 +5,7 @@
 //
 (function () {
   'use strict';
-  angular.module('angular-zxcvbn', [])
+  angular.module('zxcvbn', [])
   .directive('zxcvbn', function () {
     return {
       scope: {
