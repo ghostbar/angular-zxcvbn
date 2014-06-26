@@ -6,7 +6,7 @@ describe('zxcvbn directive', function () {
   var $compile, $rootScope;
   var expect = chai.expect;
 
-  beforeEach(module('angular-zxcvbn'));
+  beforeEach(module('zxcvbn'));
 
   beforeEach(inject(
     ['$compile', '$rootScope', function ($c, $r) {
