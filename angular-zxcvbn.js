@@ -10,7 +10,8 @@
     return {
       scope: {
         password: '=',
-        extra: '='
+        extra: '=',
+        full: '=?'
       },
       restrict: 'E',
       template: '{{ timeToCrack.crack_time_display }}',
@@ -21,6 +22,10 @@
               scope.timeToCrack = zxcvbn(newVal, scope.extra);
             else
               scope.timeToCrack = zxcvbn(newVal);
+
+            if (scope.full && scope.timeToCrack)
+              scope.full = angular.copy(scope.timeToCrack);
+
           }
         });
       }
