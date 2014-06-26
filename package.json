@@ -17,7 +17,7 @@
     "mocha": "^1.20.1"
   },
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "./node_modules/.bin/karma start --single-run"
   },
   "repository": {
     "type": "git",
