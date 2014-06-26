@@ -11,13 +11,15 @@
       scope: {
         password: '=',
         extra: '=',
-        full: '=?'
+        full: '=?',
+        show: '=?'
       },
       restrict: 'E',
-      template: '{{ timeToCrack.crack_time_display }}',
+      template: '{{ display.crack_time_display }}',
       link: function (scope) {
         scope.$watch('password', function (newVal) {
           if (newVal) {
+            scope.show = (scope.show != null) ? scope.show : true;
             if (scope.extra)
               scope.timeToCrack = zxcvbn(newVal, scope.extra);
             else
@@ -25,6 +27,9 @@
 
             if (scope.full && scope.timeToCrack)
               scope.full = angular.copy(scope.timeToCrack);
+
+            if (scope.show)
+              scope.display = angular.copy(scope.timeToCrack);
 
           }
         });
