@@ -38,4 +38,12 @@ describe('zxcvbn directive', function () {
     $rootScope.$digest();
     expect($rootScope.fullData.crack_time_display).to.equal('instant');
   });
+
+  it('should not show HTML if false is passed to `show`', function () {
+    $rootScope.password = 'randomness';
+    $rootScope.theHtml = false;
+    var element = $compile('<zxcvbn password=\'password\' show=\'theHtml\'></zxcvbn>')($rootScope);
+    $rootScope.$digest();
+    expect(element.html()).to.equal('');
+  });
 });
