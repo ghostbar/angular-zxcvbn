@@ -23,9 +23,7 @@ Ready to use in your views!:
 
 `index.html:`
 
-```html
-Time to crack your password <zxcvbn password='passwordVar'></zxcvbn>
-```
+    Time to crack your password <zxcvbn password='passwordVar'></zxcvbn>
 
 There's another input variable available called `extra` where you can put an array with other strings the user has inputted like name, username or email, that way `zxcvbn` gets a better time to crack estimate.
 
