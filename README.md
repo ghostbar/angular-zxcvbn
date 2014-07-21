@@ -33,6 +33,10 @@ If you want to get the full Object response from `zxcvbn` then pass a variable t
 
 If in doubt on how to implement, please check the example available at `example/index.html` or try it live on <http://plnkr.co/9wTZgR>.
 
+History
+-------
+Refer to the History.md file.
+
 Author
 ------
 © 2014, Jose Luis Rivas `<me@ghostbar.co>`. 
