@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   angular.module('zxcvbn', [])
-  .directive('zxcvbn', function () {
+  .directive('zxcvbnCrackTime', function () {
     return {
       scope: {
         password: '=',
@@ -33,6 +33,21 @@
 
           }
         });
+      }
+    };
+  }).directive('zxcvbnScore', function() {
+    return {
+      require: 'ngModel',
+      restrict: 'A',
+      scope: {
+          score: '='
+      },
+      link: function(scope, elem, attrs, ctrl) {
+          scope.$watch(function () {
+            return (ctrl.$pristine) || zxcvbn(ctrl.$modelValue || ctrl.$$invalidModelValue || '').score > (scope.score ? scope.score : 0);
+          }, function(currentValue){
+            ctrl.$setValidity('zxcvbn', currentValue);
+          });
       }
     };
   });

@@ -7,20 +7,27 @@
   <script src='../angular-zxcvbn.js'></script>
 
   <script type="text/javascript" charset="utf-8">
-    var app = angular.module('myApp', ['angular-zxcvbn']);
+    var app = angular.module('myApp', ['zxcvbn']);
 
     app.controller('PasswordCtrl', function ($scope) {
         $scope.password = 'randomness';
+        $scope.passwordstrength = 'randomness';
+        $scope.score = 2;
     });
   </script> 
 </head>
 <body data-ng-controller='PasswordCtrl'>
 
   <p>Write here any password: (the initial password is 'randomness')</p>
-  <form>
-    <input type='password' ng-model='password'></input>
+  <form name="form">
+    <input type='password' name='password' ng-model='password'></input>
   </form>
-  <small>The time to crack this password is: <zxcvbn password='password'></zxcvbn></small>
-  
+  <small>The time to crack this password is: <zxcvbn-crack-time password='password'></zxcvbn-crack-time></small>
+  <p>Write here to test password strength (score is {{score}}): </p>
+  <form name="formstrength">
+    <input type='password' name='passwordstrength' ng-model='passwordstrength' zxcvbn-score score="score"></input>
+    <input type='number' name='score' ng-model='score'></input>
+  </form>
+  <small ng-show="formstrength.passwordstrength.$error.zxcvbn">The password is too weak!</small>
 </body>
 </html>
