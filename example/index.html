@@ -2,15 +2,16 @@
 <head>
   <meta charset='utf-8'>
   <title>Index</title>
-  <script src='../bower_components/zxcvbn/zxcvbn.js'></script>
+  <script src='../bower_components/zxcvbn/dist/zxcvbn.js'></script>
   <script src='../bower_components/angular/angular.js'></script>
   <script src='../angular-zxcvbn.js'></script>
 
   <script type="text/javascript" charset="utf-8">
-    var app = angular.module('myApp', ['angular-zxcvbn']);
+    var app = angular.module('myApp', ['zxcvbn']);
 
     app.controller('PasswordCtrl', function ($scope) {
         $scope.password = 'randomness';
+        $scope.zxcvbn = {};
     });
   </script> 
 </head>
@@ -20,7 +21,7 @@
   <form>
     <input type='password' ng-model='password'></input>
   </form>
-  <small>The time to crack this password is: <zxcvbn password='password'></zxcvbn></small>
-  
+  <small>The time to crack this password is: <zxcvbn password='password' full="zxcvbn"></zxcvbn></small>
+  <p> {{ zxcvbn | json }}</p>
 </body>
 </html>

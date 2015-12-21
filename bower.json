@@ -25,7 +25,7 @@
     "angular-mocks": "~1.2.18"
   },
   "dependencies": {
-    "zxcvbn": "*",
+    "zxcvbn": "~4.2.0",
     "angular": "~1.2.18"
   }
 }
