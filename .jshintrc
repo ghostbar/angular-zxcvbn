@@ -19,8 +19,16 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "jasmine": true,
+  "globalstrict": true,
   "globals": {
     "angular": false,
-    "_": true
+    "describe": false,
+    "it": false,
+    "expect": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "module": false,
+    "inject": false
   }
 }

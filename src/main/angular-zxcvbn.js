@@ -4,7 +4,6 @@
 // ==============
 //
 
-// TODO:
 (function () {
   'use strict';
   angular.module('zxcvbn', [])

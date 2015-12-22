@@ -1,8 +1,9 @@
 {
   "name": "angular-zxcvbn",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "authors": [
-    "Jose Luis Rivas <me@ghostbar.co>"
+    "Jose Luis Rivas <me@ghostbar.co>",
+    "James Clark <james.clark92@hotmail.co.uk"
   ],
   "description": "Angular Directive for the zxcvbn library",
   "main": "angular-zxcvbn.js",

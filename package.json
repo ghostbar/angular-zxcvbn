@@ -1,6 +1,6 @@
 {
   "name": "angular-zxcvbn",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Angular directive for the library zxcvbn",
   "main": "angular-zxcvbn.js",
   "directories": {
@@ -19,14 +19,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ghostbar/angular-zxcvbn"
+    "url": "https://github.com/jamesclark92/angular-zxcvbn"
   },
   "keywords": [
     "angular",
     "zxcvbn",
     "directive"
   ],
-  "author": "Jose Luis Rivas <me@ghostbar.co>",
+  "contributors": [
+    "Jose Luis Rivas <me@ghostbar.co>",
+    "James Clark <james.clark92@hotmail.co.uk"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ghostbar/angular-zxcvbn/issues"

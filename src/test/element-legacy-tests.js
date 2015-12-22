@@ -1,4 +1,4 @@
-/* global describe,beforeEach,it,inject,chai */
+/* global zxcvbn */
 
 'use strict';
 
@@ -18,11 +18,11 @@ describe('zxcvbn directive', function () {
 
   it('should show the results of zxcvbn("randomness") when the directive element is used with a scope variable with the value "randomness"', function () {
     $rootScope.password = 'randomness';
-    var element = $compile('<zxcvbn password=\'password\'></zxcvbn>')($rootScope);
+    var element = $compile('<zxcvbn password="password"></zxcvbn>')($rootScope);
     $rootScope.$digest();
 
     //  Replacer is not needed here as calc_time is not included in the html
-    var expected = JSON.stringify(zxcvbn($rootScope.password).crack_times_display);
+    var expected = JSON.stringify(zxcvbn($rootScope.password).crack_times_display); // jshint ignore:line
     expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password);
     expect(element.html()).toEqual(expected);
   });
@@ -30,7 +30,7 @@ describe('zxcvbn directive', function () {
   it('should call zxcvbn with 2 parameters when the "extra" attribute is used', function () {
     $rootScope.password = 'randomness';
     $rootScope.extras = 'randomness';
-    $compile('<zxcvbn password=\'password\' extras=\'extras\' ></zxcvbn>')($rootScope);
+    $compile('<zxcvbn password="password" extras="extras"></zxcvbn>')($rootScope);
     $rootScope.$digest();
 
     expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.extras);
@@ -40,7 +40,7 @@ describe('zxcvbn directive', function () {
     $rootScope.password = 'randomness';
     $rootScope.extras = ['randomness'];
     $rootScope.fullData = {};
-    $compile('<zxcvbn password=\'password\' extras=\'extras\' full=\'fullData\'></zxcvbn>')($rootScope);
+    $compile('<zxcvbn password="password" extras="extras" full="fullData"></zxcvbn>')($rootScope);
     $rootScope.$digest();
 
     var expected = JSON.stringify(zxcvbn($rootScope.password, $rootScope.extras), zxcvbnJsonReplacer);
@@ -49,9 +49,31 @@ describe('zxcvbn directive', function () {
   });
 
 
+  var invalidValues = [undefined, null, 1, NaN, angular.isString];
+
+  function invalidValueTestHelper(value) {
+    it('should not call zxcvbn on non-string values (including undefined and null', function () {
+
+      var fullData = 'string not object';
+      $rootScope.password = value;
+      $rootScope.fullData = fullData;
+      $compile('<zxcvbn password="password" full="fullData"></zxcvbn>')($rootScope);
+      $rootScope.$digest();
+
+      expect(window.zxcvbn).not.toHaveBeenCalled();
+      expect($rootScope.fullData).toEqual(jasmine.any(String));
+      expect($rootScope.fullData).toEqual(fullData);
+    });
+  }
+
+  for (var i = 0; i < invalidValues.length; i++) {
+    invalidValueTestHelper(invalidValues[i]);
+  }
+
+
   function zxcvbnJsonReplacer(key, value) {
     // As the calculation time can vary we should exclude it from the json comparison
-    if (key == 'calc_time') return undefined;
+    if (key === 'calc_time') return undefined;
     return value;
   }
 });
