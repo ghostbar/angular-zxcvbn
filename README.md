@@ -1,4 +1,4 @@
-angular-zxcvbn [![Build Status](https://secure.travis-ci.org/ghostbar/angular-zxcvbn.png)](http://travis.ci.org/ghostbar/angular-zxcvbn)
+angular-zxcvbn [![Build Status](https://travis-ci.org/jamesclark92/angular-zxcvbn.svg?branch=master)](https://travis-ci.org/jamesclark92/angular-zxcvbn)
 ==============
 
 This is a simple directive for the [`zxcvbn`](https://github.com/dropbox/zxcvbn) library.
