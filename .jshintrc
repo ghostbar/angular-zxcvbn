@@ -29,6 +29,7 @@
     "beforeEach": false,
     "afterEach": false,
     "module": false,
-    "inject": false
+    "inject": false,
+    "zxcvbn": false
   }
 }

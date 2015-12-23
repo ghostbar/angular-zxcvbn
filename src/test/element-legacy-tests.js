@@ -1,5 +1,3 @@
-/* global zxcvbn */
-
 'use strict';
 
 describe('zxcvbn directive', function () {

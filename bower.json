@@ -1,12 +1,12 @@
 {
   "name": "angular-zxcvbn",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "authors": [
     "Jose Luis Rivas <me@ghostbar.co>",
     "James Clark <james.clark92@hotmail.co.uk"
   ],
   "description": "Angular Directive for the zxcvbn library",
-  "main": "angular-zxcvbn.js",
+  "main": "dist/angular-zxcvbn.js",
   "keywords": [
     "angular",
     "directive",
@@ -23,10 +23,10 @@
     "package.json"
   ],
   "devDependencies": {
-    "angular-mocks": "~1.2.18"
+    "angular-mocks": "~1.5.0-rc.0"
   },
   "dependencies": {
     "zxcvbn": "~4.2.0",
-    "angular": "~1.2.18"
+    "angular": "~1.5.0-rc.0"
   }
 }

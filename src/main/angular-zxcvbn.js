@@ -1,9 +1,3 @@
-/* global zxcvbn */
-//
-// angular-zxcvbn
-// ==============
-//
-
 (function () {
   'use strict';
   angular.module('zxcvbn', [])
