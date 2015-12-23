@@ -3,6 +3,11 @@ angular-zxcvbn [![Build Status](https://travis-ci.org/jamesclark92/angular-zxcvb
 
 This is a simple directive for the [`zxcvbn`](https://github.com/dropbox/zxcvbn) library.
 
+
+* auto-gen TOC:
+{:toc}
+
+
 Usage
 -----
 
@@ -33,7 +38,7 @@ If in doubt on how to implement, please check the example available at `example/
 
 History
 -------
-Refer to the History.md file.
+Refer to the [History.md](History.md)file.
 
 Author
 ------
