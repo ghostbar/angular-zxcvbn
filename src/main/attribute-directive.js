@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  // Don't include any dependent modules here - include them in the element directive source
+  // Don't include any dependent modules here - include them in the element directive source code
   angular.module('zxcvbn')
     .directive('zxcvbn', function () {
       return {
@@ -23,6 +23,18 @@
               scope.zxcvbn = zxcvbn(scope.zxcvbnPassword, scope.zxcvbnExtras);
             } else {
               scope.zxcvbn = zxcvbn(scope.zxcvbnPassword);
+            }
+          };
+
+
+          /**
+           * Checks if the given object is a form.
+           */
+          scope.isForm = function (value) {
+            try {
+              return Object.getPrototypeOf(value).constructor.name === 'FormController';
+            } catch (error) {
+              return false;
             }
           };
 
@@ -58,7 +70,7 @@
               var validPropertyRegex = new RegExp('^(?!\\$|__)');
               for (var prop in form) {
                 // Property's containing the string "password" should also be ignored
-                if (validPropertyRegex.test(prop) && prop.indexOf('password') === -1) {
+                if (validPropertyRegex.test(prop) && prop.toLowerCase().indexOf('password') === -1) {
                   extrasArray.push(scope[extrasPropertyName][prop].$viewValue);
                 }
               }
@@ -109,37 +121,53 @@
             }
           };
 
-          /**
-           * Checks if the given object is a form.
-           */
-          scope.isForm = function (value) {
-            try {
-              return Object.getPrototypeOf(value).constructor.name === 'FormController';
-            } catch (error) {
-              return false;
-            }
-          };
 
           // Initially set the extras watcher
           scope.setZxcvbnExtrasWatcher(attrs.zxcvbn);
 
           // Set the password validator and also run the zxcvbn algorithm on password change
-          ngModelCtrl.$validators.passwordStrength = function (value) {
-            var minScore = parseInt(attrs.zxcvbnMinScore);
+          ngModelCtrl.$validators.passwordStrength = function(value) {
+            var minScore = parseInt(scope.zxcvbnMinScore);
             minScore = (isNaN(minScore) || minScore < 0 || minScore > 4) ? 0 : minScore;
             scope.zxcvbnPassword = value;
             scope.runZxcvbn();
             return minScore <= scope.zxcvbn.score;
           };
 
-          attrs.$observe('zxcvbn', function () {
+
+          attrs.$observe('zxcvbn', function() {
             scope.setZxcvbnExtrasWatcher(attrs.zxcvbn);
             ngModelCtrl.$validate();
           });
 
-          attrs.$observe('zxcvbnMinScore', function () {
+
+          attrs.$observe('zxcvbnMinScore', function(value) {
+            // Clear the current watcher if there is one
+            if (angular.isFunction(scope.zxcvbnMinScoreWatcher)) {
+              scope.zxcvbnMinScoreWatcher();
+            }
+            scope.zxcvbnMinScoreWatcher = undefined;
+            scope.zxcvbnMinScore = undefined;
+
+            // Note: save the validation of the scope.zxcvbnMinScore in the actual validator, i.e. if it is a number of not
+
+            // If the value passed in is a scope property then watch that property for changes
+            if (angular.isDefined(scope[value])) {
+              scope.zxcvbnMinScore = scope[value];
+
+              scope.zxcvbnMinScoreWatcher = scope.$watch(value, function(newValue) {
+                scope.zxcvbnMinScore = newValue;
+                ngModelCtrl.$validate();
+              });
+
+            } else {
+              // Otherwise just attempt to read
+              scope.zxcvbnMinScore = value;
+            }
+
             ngModelCtrl.$validate();
           });
+
         }
       };
     });
