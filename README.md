@@ -3,7 +3,7 @@ angular-zxcvbn [![Build Status](https://travis-ci.org/jamesclark92/angular-zxcvb
 
 This is a simple directive for the [`zxcvbn`](https://github.com/dropbox/zxcvbn) library.
 
-## Table of Contents
+## Table of Contents ##
   * [Installation](#installation)
   * [Usage](#usage)
   * [History](#history)
@@ -11,7 +11,7 @@ This is a simple directive for the [`zxcvbn`](https://github.com/dropbox/zxcvbn)
   * [Contributors](#contributors)
   * [License](#License)
 
-## Installation
+## Installation ##
 
   Install with bower:
   ```bash
@@ -29,18 +29,18 @@ This is a simple directive for the [`zxcvbn`](https://github.com/dropbox/zxcvbn)
   angular.module('myApp', ['zxcvbn']);
   ```
 
-## Usage
+## Usage ##
 
-  # Element:
+  ### Element ###
 
   You can use the directive as an element. The element takes 3 attributes:
    * `password`<sub>**required**</sub> - the password that you want to be tested (scope variable).
    * `extras`<sub>*optional*</sub> - an array of strings that zxcvbn will use to get a better "crack time" estimate. *Here you would normally have other form fields such as name, email address, username...*
    * `data`<sub>*optional*</sub> - a scope object that will contain the [returned data](https://github.com/dropbox/zxcvbn#usage) from the zxcvbn call.
 
-  ```html
-  <zxcvbn password='passwordVar' extras='extrasArray' data='zxcvbnData'></zxcvbn>
-  ```
+ ```html
+ <zxcvbn password='passwordVar' extras='extrasArray' data='zxcvbnData'></zxcvbn>
+ ```
 
 
 
@@ -53,18 +53,18 @@ If you want to get the full Object response from `zxcvbn` then pass a variable t
 
 If in doubt on how to implement, please check the example available at `example/index.html` or try it live on <http://plnkr.co/9wTZgR>.
 
-## History
+## History ##
 
 Refer to the [History.md](History.md) file.
 
-## Author
-------
+## Author ##
+
 © 2014, Jose Luis Rivas `<me@ghostbar.co>`.
 
-## Contributors
-------------
+## Contributors ##
+
 James Clark <james.clark92@hotmail.co.uk>
 
-## License
--------
+## License ##
+
 The files are licensed under the MIT terms.
