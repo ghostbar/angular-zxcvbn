@@ -6,6 +6,8 @@ This is a simple directive for the [`zxcvbn`](https://github.com/dropbox/zxcvbn)
 ## Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
+ * [Directive](#directive) 
+ * [Element](#element)
 * [History](#history)
 * [Author](#author)
 * [Contributors](#contributors)
@@ -31,6 +33,47 @@ angular.module('myApp', ['zxcvbn']);
 
 ## Usage
 
+### Directive
+
+The main way to use the directive is as an input attribute with the `ng-model` attribute:
+```html
+ <input type='password' ng-model='userPassword' zxcvbn>
+```
+This will set `$scope.zxcvbn` to the result of calling the zxcvbn function on `$scope.userPassword`.
+This object will take the form specified [here](https://github.com/dropbox/zxcvbn#usage) as specified by the zxcvbn documentation.
+*The most relative property is `$scope.zxcvbn.score` - which is a integer ranging from 0 to 4. With 4 being the strongest password and 0 being the weakest.*
+
+
+#### Extras
+
+The attribute can also be passed an "extras" value. Extras are other bits of information affecting the strength of the password, such as username, email address, date of birth. 
+
+Example of how you might use this directive within a registration form:
+```html
+<form name="myForm">
+  <input type="email" ng-model="email" name="emailAddress">
+  <input type="text" ng-model="username" name="username">
+  <input type="password" ng-model="password" name="password" zxcvbn="myForm">
+  <input type="password" ng-model="confirmPassword" name="confirmPassword">
+</form>
+```
+* Here you can see we give the 3rd input element the attribute
+* We pass it the value `myForm`, which is the name of the form element. *The directive then picks up the associated scope property.
+* `angular-zxcvbn` will look at all named fields in the form for you (**ignoring fields with 'password' in their name**) and pass them on to the zxcvbn call.
+
+**Note:** if you do not wish to pass in a form object, you can also pass a scope variable that is an array of strings.
+
+
+#### Minimum Score
+
+If you have passed in a form object as the extras value, then you may also want to have the password field marked as invalid when below a certain score. This can be done in 2 ways:
+```html
+<input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="2"> // hard code the value
+<input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="minScore"> // pass it a scope variable
+```
+
+
+
 ### Element
 
 You can use the directive as an element. The element takes 3 attributes:
@@ -49,6 +92,7 @@ If you don't want it to display the value, just pass  `ng-show="false"`
 If you want to get the full Object response from `zxcvbn` then pass a variable to the attribute `full` and it will return there the full data from `zxcvbn`.
 
 If in doubt on how to implement, please check the example available at `example/index.html` or try it live on <http://plnkr.co/9wTZgR>.
+
 
 ## History ##
 
