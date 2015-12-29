@@ -1,5 +1,5 @@
 {
-  "name": "angular-zxcvbn",
+  "name": "angular-zxcvbn-3",
   "version": "3.0.0",
   "authors": [
     "Jose Luis Rivas <me@ghostbar.co>",
@@ -14,13 +14,20 @@
   ],
   "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
+    ".idea",
     "bower_components",
-    "test.js",
-    "tests",
-    "example",
-    "package.json"
+    "coverage",
+    "src",
+    ".gitignore",
+    ".jshintrc",
+    ".travis.yml",
+    "bower.json",
+    "gulpfile.js",
+    "History.md",
+    "karma.conf.js",
+    "LICENSE",
+    "package.json",
+    "README.md"
   ],
   "devDependencies": {
     "angular-mocks": "~1.5.0-rc.0"

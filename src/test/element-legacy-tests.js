@@ -38,7 +38,7 @@ describe('zxcvbn directive', function () {
     $rootScope.password = 'randomness';
     $rootScope.extras = ['randomness'];
     $rootScope.fullData = {};
-    $compile('<zxcvbn password="password" extras="extras" full="fullData"></zxcvbn>')($rootScope);
+    $compile('<zxcvbn password="password" extras="extras" data="fullData"></zxcvbn>')($rootScope);
     $rootScope.$digest();
 
     var expected = JSON.stringify(zxcvbn($rootScope.password, $rootScope.extras), zxcvbnJsonReplacer);
@@ -55,7 +55,7 @@ describe('zxcvbn directive', function () {
       var fullData = 'string not object';
       $rootScope.password = value;
       $rootScope.fullData = fullData;
-      $compile('<zxcvbn password="password" full="fullData"></zxcvbn>')($rootScope);
+      $compile('<zxcvbn password="password" data="fullData"></zxcvbn>')($rootScope);
       $rootScope.$digest();
 
       expect(window.zxcvbn).not.toHaveBeenCalled();

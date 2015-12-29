@@ -6,7 +6,7 @@
         scope: {
           password: '=',
           extras: '=?',
-          full: '=?'
+          data: '=?'
         },
         restrict: 'E',
         template: '{{ display.crack_times_display }}',
@@ -19,8 +19,8 @@
               else
                 scope.timeToCrack = zxcvbn(newVal);
 
-              if (scope.full && scope.timeToCrack)
-                scope.full = angular.copy(scope.timeToCrack);
+              if (scope.data && scope.timeToCrack)
+                scope.data = angular.copy(scope.timeToCrack);
 
               scope.display = angular.copy(scope.timeToCrack);
             }
