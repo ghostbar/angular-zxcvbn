@@ -23,7 +23,7 @@ bower install zxcvbn angular-zxcvbn --save
 Include the following javascript source files:
 ```html
 <script src='/bower_components/zxcvbn/dist/zxcvbn.js'></script>
-<script src='/bower_components/angular-zxcvbn/angular-zxcvbn.js'></script>
+<script src='/bower_components/angular-zxcvbn/dist/angular-zxcvbn.js'></script>
 ```
 
 Add `zxcvbn` as an angular dependency. E.G. If your module is called `myApp` then you would do:
