@@ -1,12 +1,12 @@
 # angular-zxcvbn [![Build Status](https://travis-ci.org/jamesclark92/angular-zxcvbn.svg?branch=master)](https://travis-ci.org/jamesclark92/angular-zxcvbn)
 
-
 This is a simple directive for the [`zxcvbn`](https://github.com/dropbox/zxcvbn) library.
+
 
 ## Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
- * [Directive](#directive) 
+ * [Attribute](#attribute) 
  * [Element](#element)
 * [History](#history)
 * [Author](#author)
@@ -33,22 +33,20 @@ angular.module('myApp', ['zxcvbn']);
 
 ## Usage
 
-### Directive
+### Attribute
 
-The main way to use the directive is as an input attribute with the `ng-model` attribute:
+The main way to use the directive is as an attribute alongside the `ng-model` attribute:
 ```html
  <input type='password' ng-model='userPassword' zxcvbn>
 ```
-This will set `$scope.zxcvbn` to the result of calling the zxcvbn function on `$scope.userPassword`.
-This object will take the form specified [here](https://github.com/dropbox/zxcvbn#usage) as specified by the zxcvbn documentation.
-*The most relative property is `$scope.zxcvbn.score` - which is a integer ranging from 0 to 4. With 4 being the strongest password and 0 being the weakest.*
+This will set `$scope.zxcvbn` to the [result](https://github.com/dropbox/zxcvbn#usage) of calling the zxcvbn function on `$scope.userPassword`.
 
 
-#### Extras
+#### Attribute Values
 
 The attribute can also be passed an "extras" value. Extras are other bits of information affecting the strength of the password, such as username, email address, date of birth. 
 
-Example of how you might use this directive within a registration form:
+Example:
 ```html
 <form name="myForm">
   <input type="email" ng-model="email" name="emailAddress">
@@ -58,20 +56,19 @@ Example of how you might use this directive within a registration form:
 </form>
 ```
 * Here you can see we give the 3rd input element the attribute
-* We pass it the value `myForm`, which is the name of the form element. *The directive then picks up the associated scope property.
-* `angular-zxcvbn` will look at all named fields in the form for you (**ignoring fields with 'password' in their name**) and pass them on to the zxcvbn call.
+* We pass it the value `myForm`, which is the value of the `name` attribute of the parent form element - this allows the directive to access the associated scope property.*
+* `angular-zxcvbn` will look at all elements with the `name` attribute in the form, *ignoring fields with 'password' in their name*, and pass them on to the zxcvbn call.
 
 **Note:** if you do not wish to pass in a form object, you can also pass a scope variable that is an array of strings.
 
 
-#### Minimum Score
+#### Form Validation
 
 If you have passed in a form object as the extras value, then you may also want to have the password field marked as invalid when below a certain score. This can be done in 2 ways:
 ```html
 <input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="2"> // hard code the value
 <input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="minScore"> // pass it a scope variable
 ```
-
 
 
 ### Element
@@ -84,14 +81,6 @@ You can use the directive as an element. The element takes 3 attributes:
 ```html
 <zxcvbn password='passwordVar' extras='extrasArray' data='zxcvbnData'></zxcvbn>
 ```
-
-There's another input variable available called `extra` where you can put an array with other strings the user has inputted like name, username or email, that way `zxcvbn` gets a better time to crack estimate.
-
-If you don't want it to display the value, just pass  `ng-show="false"`
-
-If you want to get the full Object response from `zxcvbn` then pass a variable to the attribute `full` and it will return there the full data from `zxcvbn`.
-
-If in doubt on how to implement, please check the example available at `example/index.html` or try it live on <http://plnkr.co/9wTZgR>.
 
 
 ## History ##
