@@ -19,7 +19,7 @@
               return;
             }
 
-            if (angular.isDefined(scope.zxcvbnExtras)) {
+            if (angular.isDefined(scope.zxcvbnExtras) && scope.zxcvbnExtras.length > 0) {
               scope.zxcvbn = zxcvbn(scope.zxcvbnPassword, scope.zxcvbnExtras);
             } else {
               scope.zxcvbn = zxcvbn(scope.zxcvbnPassword);
@@ -76,7 +76,13 @@
               }
               return extrasArray;
             }, function (newValue) {
-              scope.zxcvbnExtras = newValue;
+              scope.zxcvbnExtras = [];
+              // Only pass strings
+              for (var i = 0; i < newValue.length; i++) {
+                if (angular.isString(newValue[i])){
+                  scope.zxcvbnExtras.push(newValue[i]);
+                }
+              }
               scope.runZxcvbn();
             }, true);
           };

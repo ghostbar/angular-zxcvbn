@@ -94,6 +94,33 @@ describe('zxcvbn attribute directive', function () {
       expect($rootScope.zxcvbnExtras.length).toBe(2);
     });
 
+    it('should not call the zxcvbn function with an empty extras array', function() {
+      $rootScope.password = 'password';
+      $compile(exampleFormHtml)($rootScope);
+
+      $rootScope.$digest();
+
+      var actual = JSON.stringify($rootScope.zxcvbn);
+      var expected = JSON.stringify(zxcvbn($rootScope.password));
+      expect(actual).toEqual(expected);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password);
+      expect($rootScope.zxcvbnExtras.length).toBe(0);
+    });
+
+    it('should only pass non-null extras variables', function() {
+      $rootScope.username = { me: 'hello'}; // this will be converted to a string i.e '[object Object]'
+      $rootScope.password = 'password';
+      $compile(exampleFormHtml)($rootScope);
+
+      $rootScope.$digest();
+
+      var actual = JSON.stringify($rootScope.zxcvbn);
+      var expected = JSON.stringify(zxcvbn($rootScope.password, $rootScope.zxcvbnExtras));
+      expect(actual).toEqual(expected);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
+      expect($rootScope.zxcvbnExtras.length).toBe(1);
+    });
+
     it('should detect a form field change and make another call to zxcvbn with the updated value', function () {
       var oldUsername = 'jonskeet';
       var newUsername = 'chucknorris';
