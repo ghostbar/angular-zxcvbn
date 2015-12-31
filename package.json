@@ -1,35 +1,46 @@
 {
   "name": "angular-zxcvbn",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Angular directive for the library zxcvbn",
-  "main": "angular-zxcvbn.js",
+  "main": "dist/angular-zxcvbn.js",
   "directories": {
     "example": "example"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
-    "karma": "^0.12.16",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.1",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.8.0",
+    "karma": "^0.13.15",
     "karma-cli": "0.0.4",
-    "karma-mocha": "^0.1.3",
+    "karma-coverage": "^0.5.3",
+    "karma-jasmine": "^0.2.2",
     "karma-phantomjs-launcher": "^0.1.4",
-    "mocha": "^1.20.1"
+    "run-sequence": "^1.1.5"
   },
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ghostbar/angular-zxcvbn"
+    "url": "https://github.com/jamesclark92/angular-zxcvbn"
   },
   "keywords": [
     "angular",
     "zxcvbn",
     "directive"
   ],
-  "author": "Jose Luis Rivas <me@ghostbar.co>",
+  "contributors": [
+    "Jose Luis Rivas <me@ghostbar.co>",
+    "James Clark <james.clark92@hotmail.co.uk"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ghostbar/angular-zxcvbn/issues"
+    "url": "https://github.com/jamesclark92/angular-zxcvbn/issues"
   },
-  "homepage": "https://github.com/ghostbar/angular-zxcvbn"
+  "homepage": "https://github.com/jamesclark92/angular-zxcvbn"
 }
