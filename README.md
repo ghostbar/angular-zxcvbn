@@ -73,6 +73,8 @@ If you have passed in a form object as the extras value, then you may also want 
 <input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="minScore"> // pass it a scope variable
 ```
 
+Live plunker: <http://plnkr.co/edit/COTgky?p=preview>
+
 ---
 ### Element
 
