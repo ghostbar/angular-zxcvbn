@@ -42,13 +42,13 @@
           /**
            *  Watches scope.zxcvbnExtras - under the assumption it is a form object.
            *
-           *  A form object is constructed by giving using "<form>" and then giving it an attribute name.
+           *  A form object is constructed by giving using "<form>" and then giving it the attribute 'name'.
            *  This name is then assigned to the scope as a property. Next any controls are also given
-           *  attribute names and are attached by form object as properties.
+           *  the attributes 'ng-model' and 'name' which attaches them to the form object as properties.
            *  Example:
            *    <form name="loginForm">
-           *      <input type="email" name="emailAddress">
-           *      <input type="password" name="password">
+           *      <input type="email" name="emailAddress" ng-model="email">
+           *      <input type="password" name="password" ng-model="password">
            *    </form>
            *
            *    This gives arise to the following scope variables:
@@ -83,7 +83,7 @@
                   scope.zxcvbnExtras.push(newValue[i]);
                 }
               }
-              scope.runZxcvbn();
+              ngModelCtrl.$validate();
             }, true);
           };
 
@@ -98,7 +98,7 @@
               return scope[extrasPropertyName];
             }, function (newValue) {
               scope.zxcvbnExtras = newValue;
-              scope.runZxcvbn();
+              ngModelCtrl.$validate();
             }, true);
           };
 
