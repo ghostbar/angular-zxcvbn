@@ -8,7 +8,7 @@ describe('zxcvbn attribute directive', function () {
     '  <input type="text" ng-if="showHidden" ng-model="hidden" name="hidden">' + // use ng-if as that removes the element all together
     '  <input type="email" ng-model="email" name="emailAddress">' +
     '  <input type="text" ng-model="username" name="username">' +
-    '  <input type="password" ng-model="password" name="password" zxcvbn="myForm">' +
+    '  <input type="password" ng-model="password" name="password" zxcvbn="passwordStrength" zx-extras="myForm">' +
     '  <input type="password" ng-model="confirmPassword" name="confirmPassword">' +
     '</form>';
 
@@ -19,29 +19,29 @@ describe('zxcvbn attribute directive', function () {
       $compile = _$compile_;
       $rootScope = _$rootScope_;
 
-      spyOn(window, 'zxcvbn').and.callFake(function () {
+      spyOn(window, 'zxcvbn').and.callFake(function (password, extras) {
         // With zxcvbn 4.2.0 we rely on it returning an object containing 'score' as a int property
         return {
+          password: password,
+          extras: extras,
           score: 2
         };
       });
     }
   ));
 
-  it('should call the zxcvbn function when used with ng-model and attach the result to scope.zxcvbn', function () {
+  it('should call the zxcvbn function when used with ng-model and attach the result to the given variable', function () {
     var password = 'password';
     $rootScope.password = password;
-    $rootScope.zxcvbn = {};
-    $compile('<input type="password" ng-model="password" zxcvbn>')($rootScope);
+    $rootScope.passwordStrength = {};
+    $compile('<input type="password" ng-model="password" zxcvbn="passwordStrength">')($rootScope);
 
     $rootScope.$digest();
 
-    var actual = JSON.stringify($rootScope.zxcvbn);
+    var actual = JSON.stringify($rootScope.passwordStrength);
     var expected = JSON.stringify(zxcvbn($rootScope.password));
     expect(actual).toEqual(expected);
-    expect($rootScope.zxcvbnPassword).toEqual(password);
-    expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password);
-    expect($rootScope.zxcvbnExtras).toBeUndefined();
+    expect(window.zxcvbn).toHaveBeenCalledWith(password);
   });
 
   it('should fail to compile when used without ng-model', function () {
@@ -54,26 +54,25 @@ describe('zxcvbn attribute directive', function () {
     ).toThrow();
   });
 
-  it('should recall the zxcvbn when the password changes', function () {
+  it('should call the zxcvbn when the password changes', function () {
     var oldPassword = 'password';
     var newPassword = 'qwerty';
-
     $rootScope.password = oldPassword;
-    $compile('<input type="password" ng-model="password" zxcvbn>')($rootScope);
+    $compile('<input type="password" ng-model="password" zxcvbn="passwordStrength">')($rootScope);
     $rootScope.$digest();
-    expect($rootScope.zxcvbnPassword).toEqual(oldPassword);
-    expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password);
-    expect($rootScope.zxcvbnExtras).toBeUndefined();
+
+    var actual1 = JSON.stringify($rootScope.passwordStrength);
+    var expected1 = JSON.stringify(zxcvbn(oldPassword));
+    expect(actual1).toEqual(expected1);
+    expect(window.zxcvbn).toHaveBeenCalledWith(oldPassword);
 
     $rootScope.password = angular.copy(newPassword);
     $rootScope.$digest();
 
-    var actual = JSON.stringify($rootScope.zxcvbn);
-    var expected = JSON.stringify(zxcvbn($rootScope.password));
-    expect(actual).toEqual(expected);
-    expect($rootScope.zxcvbnPassword).toEqual(newPassword);
-    expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password);
-    expect($rootScope.zxcvbnExtras).toBeUndefined();
+    var actual2 = JSON.stringify($rootScope.passwordStrength);
+    var expected2 = JSON.stringify(zxcvbn(newPassword));
+    expect(actual2).toEqual(expected2);
+    expect(window.zxcvbn).toHaveBeenCalledWith(newPassword);
   });
 
   describe('with extras attribute with form object', function () {
@@ -86,12 +85,10 @@ describe('zxcvbn attribute directive', function () {
 
       $rootScope.$digest();
 
-      var actual = JSON.stringify($rootScope.zxcvbn);
+      var actual = JSON.stringify($rootScope.passwordStrength);
       var expected = JSON.stringify(zxcvbn($rootScope.password, [$rootScope.email, $rootScope.username]));
       expect(actual).toEqual(expected);
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toContain($rootScope.email, $rootScope.username);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, [$rootScope.email, $rootScope.username]);
     });
 
     it('should not call the zxcvbn function with an empty extras array', function() {
@@ -100,11 +97,10 @@ describe('zxcvbn attribute directive', function () {
 
       $rootScope.$digest();
 
-      var actual = JSON.stringify($rootScope.zxcvbn);
+      var actual = JSON.stringify($rootScope.passwordStrength);
       var expected = JSON.stringify(zxcvbn($rootScope.password));
       expect(actual).toEqual(expected);
       expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password);
-      expect($rootScope.zxcvbnExtras.length).toBe(0);
     });
 
     it('should only pass non-null extras variables', function() {
@@ -114,11 +110,10 @@ describe('zxcvbn attribute directive', function () {
 
       $rootScope.$digest();
 
-      var actual = JSON.stringify($rootScope.zxcvbn);
-      var expected = JSON.stringify(zxcvbn($rootScope.password, $rootScope.zxcvbnExtras));
+      var actual = JSON.stringify($rootScope.passwordStrength);
+      var expected = JSON.stringify(zxcvbn($rootScope.password, ['[object Object]']));
       expect(actual).toEqual(expected);
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras.length).toBe(1);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, ['[object Object]']);
     });
 
     it('should detect a form field change and make another call to zxcvbn with the updated value', function () {
@@ -131,16 +126,12 @@ describe('zxcvbn attribute directive', function () {
       $rootScope.confirmPassword = 'wrong_password';
       $compile(exampleFormHtml)($rootScope);
       $rootScope.$digest();
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toContain(oldUsername);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, [ $rootScope.email, oldUsername]);
 
       $rootScope.username = angular.copy(newUsername);
       $rootScope.$digest();
 
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toContain(newUsername);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, [ $rootScope.email, newUsername]);
     });
 
     it('should detect when a form field has been added and recall zxcvbn with the added field too', function () {
@@ -155,18 +146,13 @@ describe('zxcvbn attribute directive', function () {
       $compile(exampleFormHtml)($rootScope);
       $rootScope.$digest();
       expect($rootScope.myForm.hidden).toBeUndefined();
-      expect(window.zxcvbn).toHaveBeenCalled();
-      expect($rootScope.zxcvbnExtras).toContain($rootScope.email, $rootScope.username);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
-      expect($rootScope.zxcvbnExtras).not.toContain($rootScope.hidden);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, [$rootScope.email, $rootScope.username]);
 
       // Now show the element
       $rootScope.showHidden = true;
       $rootScope.$digest();
       expect($rootScope.myForm.hidden).toBeDefined();
-      expect(window.zxcvbn).toHaveBeenCalled();
-      expect($rootScope.zxcvbnExtras).toContain($rootScope.email, $rootScope.username, $rootScope.hidden);
-      expect($rootScope.zxcvbnExtras.length).toBe(3);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, [$rootScope.email, $rootScope.username, $rootScope.hidden]);
     });
 
     it('should detect when a form field has been removed and recall zxcvbn without that field', function () {
@@ -181,18 +167,13 @@ describe('zxcvbn attribute directive', function () {
       $compile(exampleFormHtml)($rootScope);
       $rootScope.$digest();
       expect($rootScope.myForm.hidden).toBeDefined();
-      expect(window.zxcvbn).toHaveBeenCalled();
-      expect($rootScope.zxcvbnExtras).toContain($rootScope.email, $rootScope.username, $rootScope.hidden);
-      expect($rootScope.zxcvbnExtras.length).toBe(3);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, [$rootScope.email, $rootScope.username, $rootScope.hidden]);
 
       // Now hide the element
       $rootScope.showHidden = false;
       $rootScope.$digest();
       expect($rootScope.myForm.hidden).toBeUndefined();
-      expect(window.zxcvbn).toHaveBeenCalled();
-      expect($rootScope.zxcvbnExtras).toContain($rootScope.email, $rootScope.username);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
-      expect($rootScope.zxcvbnExtras).not.toContain($rootScope.hidden);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, [$rootScope.email, $rootScope.username]);
     });
 
   });
@@ -202,15 +183,13 @@ describe('zxcvbn attribute directive', function () {
     it('should detect when a string array is passed and use them as an argument for the zxcvbn call', function () {
       $rootScope.myExtrasArray = ['john', 'skeet', 'mad_dog_john@hotmail.com'];
       $rootScope.password = 'password';
-      $compile('<input type="password" ng-model="password" zxcvbn="myExtrasArray">')($rootScope);
+      $compile('<input type="password" ng-model="password" zxcvbn="passwordStrength" zx-extras="myExtrasArray">')($rootScope);
       $rootScope.$digest();
 
-      var actual = JSON.stringify($rootScope.zxcvbn);
+      var actual = JSON.stringify($rootScope.passwordStrength);
       var expected = JSON.stringify(zxcvbn($rootScope.password, $rootScope.myExtrasArray));
       expect(actual).toEqual(expected);
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toEqual($rootScope.myExtrasArray);
-      expect($rootScope.zxcvbnExtras.length).toBe(3);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.myExtrasArray);
     });
 
     it('should detect when an element in the array changes and recall zxcvbn', function () {
@@ -219,54 +198,40 @@ describe('zxcvbn attribute directive', function () {
 
       $rootScope.myExtrasArray = ['test@example.com', oldUsername];
       $rootScope.password = 'password';
-      $compile('<input type="password" ng-model="password" zxcvbn="myExtrasArray">')($rootScope);
+      $compile('<input type="password" ng-model="password" zxcvbn="passwordStrength" zx-extras="myExtrasArray">')($rootScope);
       $rootScope.$digest();
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toEqual($rootScope.myExtrasArray);
-      expect($rootScope.zxcvbnExtras).toContain(oldUsername);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.myExtrasArray);
 
       $rootScope.myExtrasArray = ['test@example.com', newUsername];
       $rootScope.$digest();
 
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toEqual($rootScope.myExtrasArray);
-      expect($rootScope.zxcvbnExtras).toContain(newUsername);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.myExtrasArray);
     });
 
     it('should detect when an element been added and recall zxcvbn with the added element too', function () {
       $rootScope.myExtrasArray = ['test@example.com', 'jon_skeet'];
       $rootScope.password = 'password';
-      $compile('<input type="password" ng-model="password" zxcvbn="myExtrasArray">')($rootScope);
+      $compile('<input type="password" ng-model="password" zxcvbn="passwordStrength" zx-extras="myExtrasArray">')($rootScope);
       $rootScope.$digest();
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toEqual($rootScope.myExtrasArray);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.myExtrasArray);
 
       $rootScope.myExtrasArray = ['test@example.com', 'jon_skeet', '123 buckingham palace'];
       $rootScope.$digest();
 
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toEqual($rootScope.myExtrasArray);
-      expect($rootScope.zxcvbnExtras.length).toBe(3);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.myExtrasArray);
     });
 
     it('should detect when an element has been removed and recall zxcvbn without that element', function () {
       $rootScope.myExtrasArray = ['test@example.com', 'jon_skeet', '123 buckingham palace'];
       $rootScope.password = 'password';
-      $compile('<input type="password" ng-model="password" zxcvbn="myExtrasArray">')($rootScope);
+      $compile('<input type="password" ng-model="password" zxcvbn="passwordStrength" zx-extras="myExtrasArray">')($rootScope);
       $rootScope.$digest();
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toEqual($rootScope.myExtrasArray);
-      expect($rootScope.zxcvbnExtras.length).toBe(3);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.myExtrasArray);
 
       $rootScope.myExtrasArray = ['test@example.com', 'jon_skeet'];
       $rootScope.$digest();
 
-      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.zxcvbnExtras);
-      expect($rootScope.zxcvbnExtras).toEqual($rootScope.myExtrasArray);
-      expect($rootScope.zxcvbnExtras.length).toBe(2);
+      expect(window.zxcvbn).toHaveBeenCalledWith($rootScope.password, $rootScope.myExtrasArray);
     });
   });
 
@@ -277,7 +242,7 @@ describe('zxcvbn attribute directive', function () {
         var minScoreForm =
           '<form name="myForm">' +
           '  <input type="email" ng-model="email" name="emailAddress">' +
-          '  <input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="' + minScoreValue + '">' +
+          '  <input type="password" ng-model="password" name="password" zxcvbn zx-extras="myForm" zx-min-score="' + minScoreValue + '">' +
           '</form>';
 
         $rootScope.password = 'password';
@@ -310,7 +275,7 @@ describe('zxcvbn attribute directive', function () {
         var minScoreForm =
           '<form name="myForm">' +
           '  <input type="email" ng-model="email" name="emailAddress">' +
-          '  <input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="' + minScoreValue + '">' +
+          '  <input type="password" ng-model="password" name="password" zxcvbn zx-extras="myForm" zx-min-score="' + minScoreValue + '">' +
           '</form>';
 
         $rootScope.password = 'password';
@@ -325,12 +290,12 @@ describe('zxcvbn attribute directive', function () {
       minScoreInvalidValuesTestHelper(invalidMinScoreValues[j]);
     }
 
-    it('should detect when a scope property is passed and read its value for the minimum score comparison', function() {
+    it('should allow interpolated controller values', function() {
       $rootScope.minScore = 2;
       var minScoreForm =
         '<form name="myForm">' +
         '  <input type="email" ng-model="email" name="emailAddress">' +
-        '  <input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="minScore">' +
+        '  <input type="password" ng-model="password" name="password" zxcvbn zx-extras="myForm" zx-min-score="{{ minScore }}">' +
         '</form>';
 
       $rootScope.password = 'password';
@@ -338,7 +303,6 @@ describe('zxcvbn attribute directive', function () {
       $rootScope.$digest();
 
       expect($rootScope.myForm.password.$invalid).toBeFalsy();
-      expect($rootScope.zxcvbnMinScore).toEqual($rootScope.minScore);
     });
 
     it('should dectect when a passed in scope variable changes and re-validate', function() {
@@ -346,26 +310,18 @@ describe('zxcvbn attribute directive', function () {
       var minScoreForm =
         '<form name="myForm">' +
         '  <input type="email" ng-model="email" name="emailAddress">' +
-        '  <input type="password" ng-model="password" name="password" zxcvbn="myForm" zxcvbn-min-score="minScore">' +
+        '  <input type="password" ng-model="password" name="password" zxcvbn zx-extras="myForm" zx-min-score="{{ minScore }}">' +
         '</form>';
       $rootScope.password = 'password';
       $compile(minScoreForm)($rootScope);
       $rootScope.$digest();
       expect($rootScope.myForm.password.$invalid).toBeFalsy();
-      expect($rootScope.zxcvbnMinScore).toEqual($rootScope.minScore);
 
       $rootScope.minScore = 3;
       $rootScope.$digest();
 
       expect($rootScope.myForm.password.$invalid).toBeTruthy();
-      expect($rootScope.zxcvbnMinScore).toEqual($rootScope.minScore);
     });
-
-    // valid ones = 0,1,2,3,4, 1.7
-    // invaild = -1, 5, 2000, 'three', empty string
-    // should set the field to invalid myForm.password.$invalid = true
-    // when the minScoreField changes
-    // should be able to use scope variables as well
 
   });
 

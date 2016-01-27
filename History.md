@@ -24,3 +24,9 @@
   * Can have the form marked as invalid using the `zxcvbn-min-score` attribute.
 * Renamed variables in element directive
 * Added gulp file for building - just run default gulp task.
+
+
+3.1.0 / 2015-24-01
+==================
+ 
+* Refactored code to allow for "controller as" syntax

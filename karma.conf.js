@@ -13,6 +13,7 @@ module.exports = function (config) {
       'bower_components/zxcvbn/dist/zxcvbn.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'node_modules/phantomjs-polyfill/bind-polyfill.js',
       'src/**/*.js'
     ],
 
