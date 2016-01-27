@@ -20,7 +20,8 @@
     "karma-coverage": "^0.5.3",
     "karma-jasmine": "^0.2.2",
     "karma-phantomjs-launcher": "^0.1.4",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "phantomjs-polyfill": "0.0.1"
   },
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run"
