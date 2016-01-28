@@ -2,7 +2,6 @@
 
 This is a simple directive for the [zxcvbn](https://github.com/dropbox/zxcvbn) library.
 
-
 ## Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
@@ -34,6 +33,8 @@ angular.module('myApp', ['zxcvbn']);
 ## Usage
 
 ##### Attribute
+
+Live plunker: <http://plnkr.co/edit/COTgky?p=preview>
 
 The main way to use the directive is as an attribute alongside the `ng-model` attribute:
 ```html
@@ -78,8 +79,6 @@ value
 <input type="password" ng-model="password" name="password" zxcvbn="passwordStrength" zx-extras="myForm" zx-min-score="{{ minScore }}"> // pass it a scope 
 variable
 ```
-
-Live plunker: <http://plnkr.co/edit/COTgky?p=preview>
 
 ---
 ### Element
