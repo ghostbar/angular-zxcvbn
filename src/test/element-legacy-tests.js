@@ -37,7 +37,6 @@ describe('zxcvbn directive', function () {
   it('should give full data to attribute `fullData`', function () {
     $rootScope.password = 'randomness';
     $rootScope.extras = ['randomness'];
-    $rootScope.fullData = {};
     $compile('<zxcvbn password="password" extras="extras" data="fullData"></zxcvbn>')($rootScope);
     $rootScope.$digest();
 
