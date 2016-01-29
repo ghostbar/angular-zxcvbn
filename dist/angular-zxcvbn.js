@@ -10,7 +10,7 @@
         },
         restrict: 'E',
         template: '{{ display.crack_times_display }}',
-        link: function (scope) {
+        link: function (scope, element, attrs) {
           scope.$watch('password', function (newVal) {
             if (angular.isString(newVal)) {
 
@@ -19,7 +19,7 @@
               else
                 scope.timeToCrack = zxcvbn(newVal);
 
-              if (scope.data && scope.timeToCrack)
+              if (('data' in attrs) && scope.timeToCrack)
                 scope.data = angular.copy(scope.timeToCrack);
 
               scope.display = angular.copy(scope.timeToCrack);
