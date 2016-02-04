@@ -20,8 +20,7 @@
            */
           scope.runZxcvbn = function () {
             if (angular.isUndefined(scope.zxPassword)) {
-              console.log('Cant run zxcvbn because the password is not defined in the scope.');
-              return;
+              scope.zxPassword = String(scope.zxPassword);
             }
 
             if (angular.isDefined(scope.zxExtrasArray) && scope.zxExtrasArray.length > 0) {

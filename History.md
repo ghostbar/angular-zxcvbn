@@ -26,7 +26,19 @@
 * Added gulp file for building - just run default gulp task.
 
 
-3.1.0 / 2015-24-01
+3.1.0 / 2015-01-24
 ==================
  
-* Refactored code to allow for "controller as" syntax
+* Refactored attribute code to allow for "controller as" syntax
+
+
+3.1.1 / 2015-01-29
+==================
+ 
+* Refactored element code to allow for "controller as" syntax
+
+
+3.2.0 / 2015-02-04
+==================
+ 
+* Removed console log and error messages for undefined passwords
