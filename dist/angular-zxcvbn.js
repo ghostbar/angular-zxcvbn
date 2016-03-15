@@ -53,7 +53,7 @@
            */
           scope.runZxcvbn = function () {
             if (angular.isUndefined(scope.zxPassword)) {
-              scope.zxPassword = String(scope.zxPassword);
+              scope.zxPassword = '';
             }
 
             if (angular.isDefined(scope.zxExtrasArray) && scope.zxExtrasArray.length > 0) {

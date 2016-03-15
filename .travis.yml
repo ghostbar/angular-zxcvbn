@@ -1,12 +1,21 @@
 language: node_js
-node_js:
-  - "4.1"
-  - "4.0"
-  - "0.12"
-  - "0.11"
-  - "0.10"
-  - "iojs"
-
-before_script:
-  - npm install -g bower
+sudo: false
+cache:
+  directories:
+    - node_modules
+matrix:
+  fast_finish: true
+  include:
+    - env: TEST='unit-tests'
+      node_js: "4.2"
+    - env: TEST='browser-tests'
+      node_js: "4.2"
+  allow_failures:
+    - env: TEST='browser-tests'
+before_install:
+  - npm install -g bower codeclimate-test-reporter
+install:
+  - npm install
   - bower install
+script:
+  - $TRAVIS_BUILD_DIR/travis.sh

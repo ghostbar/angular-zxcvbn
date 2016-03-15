@@ -1,4 +1,6 @@
-# angular-zxcvbn [![Build Status](https://travis-ci.org/ghostbar/angular-zxcvbn.svg?branch=master)](https://travis-ci.org/ghostbar/angular-zxcvbn)
+# angular-zxcvbn [![Build Status](https://travis-ci.org/ghostbar/angular-zxcvbn.svg)](https://travis-ci.org/ghostbar/angular-zxcvbn.js) [![Code Climate](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/gpa.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn) [![Test Coverage](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/coverage.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn/coverage)
+
+[![Saucelabs Test Status](https://saucelabs.com/browser-matrix/evilaliv3-zxcvbn.svg)](https://saucelabs.com/u/evilaliv3-zxcvbn)
 
 This is a simple directive for the [zxcvbn](https://github.com/dropbox/zxcvbn) library.
 
@@ -97,9 +99,9 @@ You can use the directive as an element. The element takes 3 attributes:
 
 Live plunker: <http://plnkr.co/edit/CYtyRA?p=preview>
 
-## History ##
+## Changelog ##
 
-Refer to the [History.md](History.md) file.
+Refer to the [CHANGELOG](CHANGELOG) file.
 
 ## Author ##
 
@@ -108,6 +110,7 @@ Refer to the [History.md](History.md) file.
 ## Contributors ##
 
 2015, James Clark, <james.clark92@hotmail.co.uk>.
+2016, Giovanni Pellerano, <giovanni.pellerano@evilaliv3.org>
 
 ## License ##
 

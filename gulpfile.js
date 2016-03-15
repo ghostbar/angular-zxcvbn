@@ -13,8 +13,8 @@ var Server = require('karma').Server;
 var runSequence = require('run-sequence');
 
 
-var srcFiles = ['./src/main/**/*.js'];
-var testFiles = ['./src/test/**/*.js'];
+var srcFiles = ['./src/*.js'];
+var testFiles = ['./test/*.js'];
 var srcAndTestFiles = srcFiles.concat(testFiles);
 
 gulp.task('default', function(callback) {
@@ -47,6 +47,13 @@ gulp.task('watch', function() {
 gulp.task('test', function (done) {
   new Server({
     configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('test-saucelabs', function (done) {
+  new Server({
+    configFile: __dirname + '/karma-saucelabs.conf.js',
     singleRun: true
   }, done).start();
 });
