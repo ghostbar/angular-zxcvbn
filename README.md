@@ -1,4 +1,4 @@
-# angular-zxcvbn [![Build Status](https://travis-ci.org/ghostbar/angular-zxcvbn.svg)](https://travis-ci.org/ghostbar/angular-zxcvbn.js) [![Code Climate](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/gpa.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn) [![Test Coverage](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/coverage.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn/coverage)
+# angular-zxcvbn [![Build Status](https://travis-ci.org/ghostbar/angular-zxcvbn.svg)](https://travis-ci.org/ghostbar/angular-zxcvbn) [![Code Climate](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/gpa.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn) [![Test Coverage](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/coverage.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn/coverage)
 
 [![Saucelabs Test Status](https://saucelabs.com/browser-matrix/evilaliv3-zxcvbn.svg)](https://saucelabs.com/u/evilaliv3-zxcvbn)
 
