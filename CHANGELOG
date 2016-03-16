@@ -1,4 +1,4 @@
-2.0.0 / 2014-06-25 
+2.0.0 / 2014-06-25
 ==================
 
  * `show` flag for not showing data in template
@@ -13,11 +13,11 @@
  * Removed `show` flag - use `ng-show="false"` instead
  * Allow calling of zxcvbn library on empty strings
  * Refactored tests
- 
- 
+
+
 3.0.0 / 2015-12-30
 ==================
- 
+
 * Added functionality for use as attribute
   * Use `zxcvbn` as an attribute alongside the `ng-model` attribute
   * Can pass a form object and have extra fields added as a parameter automatically
@@ -28,17 +28,17 @@
 
 3.1.0 / 2015-01-24
 ==================
- 
+
 * Refactored attribute code to allow for "controller as" syntax
 
 
 3.1.1 / 2015-01-29
 ==================
- 
+
 * Refactored element code to allow for "controller as" syntax
 
 
 3.2.0 / 2015-02-04
 ==================
- 
+
 * Removed console log and error messages for undefined passwords

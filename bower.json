@@ -3,7 +3,7 @@
   "version": "3.2.0",
   "authors": [
     "Jose Luis Rivas <me@ghostbar.co>",
-    "James Clark <james.clark92@hotmail.co.uk"
+    "James Clark <james.clark92@hotmail.co.uk>"
   ],
   "description": "Angular Directive for the zxcvbn library",
   "main": "dist/angular-zxcvbn.js",
@@ -23,17 +23,16 @@
     ".travis.yml",
     "bower.json",
     "gulpfile.js",
-    "History.md",
-    "karma.conf.js",
+    "CHANGELOG",
     "LICENSE",
     "package.json",
     "README.md"
   ],
   "devDependencies": {
-    "angular-mocks": "~1.5.0-rc.0"
+    "angular-mocks": "1.5.0"
   },
   "dependencies": {
-    "zxcvbn": "~4.2.0",
-    "angular": "~1.5.0-rc.0"
+    "zxcvbn": "4.3.0",
+    "angular": "1.5.0"
   }
 }
