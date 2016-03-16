@@ -1,6 +1,6 @@
 # angular-zxcvbn [![Build Status](https://travis-ci.org/ghostbar/angular-zxcvbn.svg)](https://travis-ci.org/ghostbar/angular-zxcvbn) [![Code Climate](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/gpa.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn) [![Test Coverage](https://codeclimate.com/github/ghostbar/angular-zxcvbn/badges/coverage.svg)](https://codeclimate.com/github/ghostbar/angular-zxcvbn/coverage)
 
-[![Saucelabs Test Status](https://saucelabs.com/browser-matrix/evilaliv3-zxcvbn.svg)](https://saucelabs.com/u/evilaliv3-zxcvbn)
+[![Saucelabs Test Status](https://saucelabs.com/browser-matrix/angular-zxcvbn.svg)](https://saucelabs.com/u/angular-zxcvbn)
 
 This is a simple directive for the [zxcvbn](https://github.com/dropbox/zxcvbn) library.
 
@@ -109,7 +109,8 @@ Refer to the [CHANGELOG](CHANGELOG) file.
 
 ## Contributors ##
 
-2015, James Clark, <james.clark92@hotmail.co.uk>.
+2015, James Clark, <james.clark92@hotmail.co.uk>
+
 2016, Giovanni Pellerano, <giovanni.pellerano@evilaliv3.org>
 
 ## License ##
