@@ -9,7 +9,7 @@ if [ $TEST = "unit-tests" ]; then
   sh -e /etc/init.d/xvfb start
   sleep 1
   gulp test
-  CODECLIMATE_REPO_TOKEN=5822a7769dbd5470b7dfd0a3fe43f06910dc2432fc880bfcebeda3eaca203809 codeclimate-test-reporter < coverage/lcov.info
+  CODECLIMATE_REPO_TOKEN=6ba4238a4867ac84b253a1f39cedc9ea9f04197e26d4597c92ed1f87ab0331eb codeclimate-test-reporter < lcov.info
 
 elif [[ $TEST = "browser-tests" ]]; then
 
