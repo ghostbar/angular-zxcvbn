@@ -7,9 +7,9 @@ matrix:
   fast_finish: true
   include:
     - env: TEST='unit-tests'
-      node_js: "4.2"
+      node_js: "6"
     - env: TEST='browser-tests'
-      node_js: "4.2"
+      node_js: "6"
   allow_failures:
     - env: TEST='browser-tests'
 before_install:
