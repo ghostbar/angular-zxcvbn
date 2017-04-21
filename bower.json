@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "zxcvbn": "^4.4.2",
-    "angular": "1.6.x"
+    "angular": "~1.6.0"
   }
 }
