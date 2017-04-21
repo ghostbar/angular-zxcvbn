@@ -29,7 +29,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "angular-mocks": "1.5.0"
+    "angular-mocks": "~1.6.0"
   },
   "dependencies": {
     "zxcvbn": "^4.4.2",
