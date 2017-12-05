@@ -48,8 +48,7 @@ This will set `$scope.passwordStrength` to the [result](https://github.com/dropb
 ---
 ##### Extras
 
-The directive has an optional attribute of `zx-extras`. This takes either an `array` or an [angular form object](https://docs.angularjs
-.org/api/ng/type/form.FormController), which will be passed as the optional argument to the `zxcvbn` call. 
+The directive has an optional attribute of `zx-extras`. This takes either an `array` or an [angular form object](https://docs.angularjs.org/api/ng/type/form.FormController), which will be passed as the optional argument to the `zxcvbn` call. 
 
 > The optional argument is an array of strings that zxcvbn will treat as an extra dictionary. This can be whatever list of strings you like, but is meant for user inputs from other fields of the form, like name and email. That way a password that includes a user's personal information can be heavily penalized. This list is also good for site-specific vocabulary — Acme Brick Co. might want to include ['acme', 'brick', 'acmebrick', etc]. 
 **-- <cite>zxcvbn readme.md</cite>**
@@ -99,20 +98,20 @@ You can use the directive as an element. The element takes 3 attributes:
 
 Live plunker: <http://plnkr.co/edit/CYtyRA?p=preview>
 
-## Changelog ##
+## Changelog
 
 Refer to the [CHANGELOG](CHANGELOG) file.
 
-## Author ##
+## Author
 
 © 2014, Jose Luis Rivas, <me@ghostbar.co>.
 
-## Contributors ##
+## Contributors
 
 2015, James Clark, <james.clark92@hotmail.co.uk>
 
 2016, Giovanni Pellerano, <giovanni.pellerano@evilaliv3.org>
 
-## License ##
+## License
 
 The files are licensed under the MIT terms.
